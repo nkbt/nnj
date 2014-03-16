@@ -30,7 +30,7 @@
 
 <div id="impress" data-transition-duration="500">
 
-	<div id="title" class="step" data-x="1100" data-y="-1000" data-scale="1">
+	<div id="title" class="step" data-x="0" data-y="0" data-scale="1">
 		<p class="try">Own NPM modules - pitfalls.</p>
 
 		<p>Writing custom re-usable NPM modules and how not to mess it up.</p>
@@ -53,7 +53,7 @@
 		</ol>
 	</div>
 
-	<div id="init" class="step slide" data-x="1100" data-y="1000">
+	<div id="todo" class="step slide" data-x="2200" data-y="0">
 		<h2>So, let's write app and some libraries.</h2>
 		<ol>
 			<li>"Shared" library that will say "Yes!" or "No." depending on it's configuration</li>
@@ -62,7 +62,7 @@
 		</ol>
 	</div>
 
-	<div id="shared-package" class="step slide" data-x="0" data-y="2000">
+	<div id="shared-package" class="step slide" data-x="0" data-y="1000">
 		<h2>"Shared" package.json</h2>
 		<pre><code class="json hljs">
 {
@@ -76,7 +76,7 @@
 	</div>
 
 
-	<div id="shared-code" class="step slide" data-x="1100" data-y="2000">
+	<div id="shared-code" class="step slide" data-x="1100" data-y="1000">
 		<h2>"Shared" index.js</h2>
 		<pre><code class="js hljs">
 var config = {
@@ -101,7 +101,7 @@ exports.say = say;
 
 
 
-	<div id="lib-package" class="step slide" data-x="0" data-y="3000">
+	<div id="lib-package" class="step slide" data-x="2200" data-y="1000">
 		<h2>"Lib" package.json</h2>
 		<pre><code class="json hljs">
 {
@@ -118,7 +118,7 @@ exports.say = say;
 	</div>
 
 
-	<div id="lib-code" class="step slide same" data-x="1100" data-y="3000">
+	<div id="lib-code" class="step slide" data-x="3300" data-y="1000">
 		<h2>"Lib" index.js</h2>
 		<pre><code class="js hljs">
 var sharedLib = require('shared');
@@ -136,7 +136,7 @@ exports.alwaysYes = alwaysYes;
 
 
 
-	<div id="app-package" class="step slide" data-x="0" data-y="4000">
+	<div id="app-package" class="step slide" data-x="4400" data-y="1000">
 		<h2>"App" package.json</h2>
 		<pre><code class="json hljs">
 {
@@ -154,7 +154,7 @@ exports.alwaysYes = alwaysYes;
 	</div>
 
 
-	<div id="app-code" class="step slide same" data-x="1100" data-y="4000">
+	<div id="app-code" class="step slide" data-x="5500" data-y="1000">
 		<h2>"App" app.js</h2>
 		<pre><code class="js hljs">
 var shared = require('shared');
@@ -175,7 +175,7 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 	</div>
 
 
-	<div id="expected" class="step slide same" data-x="0" data-y="5000">
+	<div id="expected" class="step slide" data-x="0" data-y="2000">
 		<h2>Running App. What we would expect?</h2>
 		<pre class="hljs"><code> > node app
 
@@ -186,7 +186,7 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 	</div>
 
 
-	<div id="actual" class="step slide same" data-x="1100" data-y="5000">
+	<div id="actual" class="step slide" data-x="1100" data-y="2000">
 		<h2>Running App. Actual result</h2>
 		<pre class="hljs"><code> > node app
 
@@ -198,13 +198,13 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 
 
 
-	<div id="wat" class="step slide" data-x="1100" data-y="7000" data-rotate-x="-90" data-rotate-y="20" data-scale="2">
+	<div id="wat" class="step slide" data-x="1700" data-y="3000" data-rotate-x="-90" data-rotate-y="20" data-scale="2">
 		<h2>WAT?</h2>
 		<img src="img/wat.jpg" style="display: block; width: 100%;" alt=""/>
 	</div>
 
 
-	<div id="files" class="step slide" data-x="0" data-y="8000" data-scale="1">
+	<div id="files" class="step slide" data-x="2200" data-y="2000" data-scale="1">
 		<h2>Let's have a look at the files</h2>
 		<pre class="hljs"><code>app.js
 package.json
@@ -219,7 +219,7 @@ package.json
 	</div>
 
 
-	<div id="missing" class="step slide" data-x="1100" data-y="8000" data-scale="1">
+	<div id="missing" class="step slide" data-x="3300" data-y="2000" data-scale="1">
 		<h2>Feels like we miss something</h2>
 		<pre class="hljs"><code>app.js
 package.json
@@ -237,7 +237,7 @@ package.json
 	</div>
 
 
-	<div id="why" class="step slide" data-x="0" data-y="9000" data-scale="2">
+	<div id="why" class="step slide" data-x="5000" data-y="2300" data-scale="2">
 		<h2>Why is this happening? NPM Bug?</h2>
 
 		<ul>
@@ -253,7 +253,7 @@ package.json
 	</div>
 
 
-	<div id="fix1" class="step slide" data-x="0" data-y="10000" data-scale="1">
+	<div id="fix1" class="step slide" data-x="1100" data-y="4300" data-scale="1">
 		<h3>1. Do not use static module configuration, use closure</h3>
 
 		<pre><code class="js hljs">
@@ -276,7 +276,7 @@ console.log(shared.say()); // Will say: "Yes!"
 	</div>
 
 
-	<div id="fix2" class="step slide" data-x="1100" data-y="10000" data-scale="1">
+	<div id="fix2" class="step slide" data-x="2200" data-y="4300" data-scale="1">
 		<h3>2. Do not use static module configuration, use objects</h3>
 
 		<pre><code class="js hljs">
@@ -301,7 +301,7 @@ console.log(shared.say()); // Will say: "Yes!"
 		</code></pre>
 	</div>
 
-	<div id="fix3" class="step slide" data-x="2200" data-y="10000" data-scale="1">
+	<div id="fix3" class="step slide" data-x="3300" data-y="4300" data-scale="1">
 		<h3>3. Use <b>bundledDependencies</b> in package.json</h3>
 
 		<pre><code class="json hljs">
@@ -322,22 +322,19 @@ console.log(shared.say()); // Will say: "Yes!"
 	</div>
 
 
-	<div id="links" class="step slide" data-x="2000" data-y="12000" data-rotate-x="90" data-rotate-y="90"  data-scale="3">
+	<div id="thanks" class="step slide" data-x="4400" data-y="5300" data-rotate-x="90" data-rotate-y="90"  data-scale="3">
 		<b>Thanks!</b>
 		<p><a href="https://github.com/nkbt/sydjs-npm" target="_blank">https:// github.com / <strong>nkbt</strong> / sydjs-npm</a> (branches)</p>
 		<p><a href="http://butenko.me" target="_blank">http:// <strong>butenko.me</strong></a></p>
 	</div>
 
+<div id="overview" class="step" data-x="2200" data-y="3000" data-scale="10">
+    </div>
 
 </div>
 
-<!--
 <ul id="nav">
-	<li><a href="#title">Title</a></li>
-	<li><a href="#summary">Summary</a></li>
-	<li><a href="#links">Thanks</a></li>
 </ul>
--->
 
 <script type="text/javascript" src="js/impress.js"></script>
 <script type="text/javascript" src="js/highlight.pack.js"></script>
@@ -403,6 +400,17 @@ console.log(shared.say()); // Will say: "Yes!"
 
 		Array.prototype.slice.apply(document.querySelectorAll('pre code.hljs')).forEach(function (element) {
 			element.style.display = 'none';
+		});
+
+		Array.prototype.slice.apply(document.querySelectorAll('[id].step')).forEach(function ($element) {
+			var $a = document.createElement('a'),
+					$li = document.createElement('li'),
+					$h = $element.querySelector('h2, h3');
+			$li.appendChild($a);
+			$a.title = $h && $h.innerHTML || $element.id;
+			$a.href = ['#', $element.id].join('');
+			$a.innerHTML = $element.id;
+			return document.querySelector('#nav').appendChild($li);
 		});
 
 		impress().init();

@@ -324,21 +324,21 @@ a:focus {
 
     Let's move to 'big thoughts' with centered text and custom font sizes.
 */
-#links {
+#thanks {
     width: 800px;
     text-align: center;
     font-size: 60px;
     line-height: 1;
 }
 
-#links b {
+#thanks b {
     display: block;
     font-size: 150px;
     line-height: 250px;
     margin-bottom: 120px;
 }
 
-#links p {
+#thanks p {
     font-size: 40px;
     line-height: 60px;
 }
