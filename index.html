@@ -1,0 +1,341 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=1024"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<title>Own NPM modules - pitfalls.</title>
+
+	<meta name="description" content=">Gleam.js - Node.js/Browser re-usable Entities presentation"/>
+	<meta name="author" content="Nik Butenko"/>
+
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet"/>
+
+	<link href="css/impress-demo.css" rel="stylesheet"/>
+
+	<link rel="shortcut icon" href="favicon.png"/>
+	<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+	<link rel="stylesheet" href="css/highlight/tomorrow-night-eighties.css">
+</head>
+
+<body class="impress-not-supported">
+
+
+<div class="fallback-message">
+	<p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+	<p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+</div>
+
+<div id="impress" data-transition-duration="500">
+
+	<div id="title" class="step" data-x="1100" data-y="-1000" data-scale="1">
+		<p class="try">Own NPM modules - pitfalls.</p>
+
+		<p>Writing custom re-usable NPM modules and how not to mess it up.</p>
+
+		<div class="footnote">
+			<p>Sydney, 19th March 2014</p>
+			<p>Nik Butenko</p>
+		</div>
+	</div>
+
+	<div id="npm" class="step slide" data-x="1100" data-y="0">
+		<h2>NPM modules. Why?</h2>
+		<ol>
+			<li>Code separation</li>
+			<li>Independence for team members</li>
+			<li>Re-use code in multiple projects</li>
+			<li>Re-use code in multiple libraries</li>
+			<li>???</li>
+			<li>PROFIT</li>
+		</ol>
+	</div>
+
+	<div id="init" class="step slide" data-x="1100" data-y="1000">
+		<h2>So, let's write app and some libraries.</h2>
+		<ol>
+			<li>"Shared" library that will say "Yes!" or "No." depending on it's configuration</li>
+			<li>"Lib" that will use "Shared" and always say "No."</li>
+			<li>"App" that will use both libs</li>
+		</ol>
+	</div>
+
+	<div id="shared-package" class="step slide" data-x="0" data-y="2000">
+		<h2>"Shared" package.json</h2>
+		<pre><code class="json hljs">
+{
+	"name": "shared",
+	"private": true,
+	"description": "Shared library",
+	"version": "0.0.1",
+	"author": {
+		"name": "Nik Butenko",
+		"email": "nik@butenko.me"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nkbt/sydjs-npm.git#shared"
+	},
+	"main": "index.js",
+	"readmeFilename": "README.md"
+}
+		</code></pre>
+	</div>
+
+
+	<div id="shared-code" class="step slide" data-x="1100" data-y="2000">
+		<h2>"Shared" index.js</h2>
+		<pre><code class="js hljs">
+var config = {
+	sayYes: false
+};
+
+function say() {
+	if (config.sayYes) {
+		return "Yes!";
+	}
+	return "No.";
+}
+
+function sayYes(shouldSayYes) {
+	config.sayYes = !!shouldSayYes;
+}
+
+exports.sayYes = sayYes;
+exports.say = say;
+		</code></pre>
+	</div>
+
+
+
+	<div id="lib-package" class="step slide" data-x="0" data-y="3000">
+		<h2>"Lib" package.json</h2>
+		<pre><code class="json hljs">
+{
+	"name": "lib",
+	"private": true,
+	"description": "Library",
+	"version": "0.0.1",
+	"author": {
+		"name": "Nik Butenko",
+		"email": "nik@butenko.me"
+	},
+	"dependencies": {
+		"shared": "nkbt/sydjs-npm#shared"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nkbt/sydjs-npm.git#lib"
+	},
+	"main": "index.js",
+	"readmeFilename": "README.md"
+}
+		</code></pre>
+	</div>
+
+
+	<div id="lib-code" class="step slide same" data-x="1100" data-y="3000">
+		<h2>"Lib" index.js</h2>
+		<pre><code class="js hljs">
+var sharedLib = require('shared');
+sharedLib.sayYes(true);
+
+function alwaysYes() {
+	return sharedLib.say();
+}
+
+exports.alwaysYes = alwaysYes;
+		</code></pre>
+	</div>
+
+
+
+
+
+	<div id="app-package" class="step slide" data-x="0" data-y="4000">
+		<h2>"App" package.json</h2>
+		<pre><code class="json hljs">
+{
+	"name": "sydjs-npm",
+	"private": true,
+	"description": "Writing custom re-usable NPM modules and how not to mess it up.",
+	"version": "0.0.1",
+	"author": {
+		"name": "Nik Butenko",
+		"email": "nik@butenko.me"
+	},
+	"dependencies": {
+		"lib": "nkbt/sydjs-npm#lib",
+		"shared": "nkbt/sydjs-npm#shared"
+	},
+	"scripts": {
+		"start": "node app.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nkbt/sydjs-npm.git#master"
+	},
+	"main": "app.js",
+	"readmeFilename": "README.md"
+}
+		</code></pre>
+	</div>
+
+
+	<div id="app-code" class="step slide same" data-x="1100" data-y="4000">
+		<h2>"App" app.js</h2>
+		<pre><code class="js hljs">
+var shared = require('shared');
+shared.sayYes(false);
+
+function alwaysNo() {
+	return shared.say();
+}
+console.log('alwaysNo()       should say "No."   ', alwaysNo());
+
+
+var lib = require('lib');
+console.log('lib.alwaysYes()  should say "Yes!"  ', lib.alwaysYes());
+
+
+console.log('alwaysNo()       should say "No."   ', alwaysNo());
+		</code></pre>
+	</div>
+
+
+	<div id="expected" class="step slide same" data-x="0" data-y="5000">
+		<h2>Running App. What we would expect?</h2>
+		<pre class="hljs"><code>
+> node app
+
+<span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">No.</span>
+<span class="hljs-function">lib.alwaysYes</span>()  should say "Yes!"   <span class="hljs-string">Yes!</span>
+<span style="background: rgba(0,255,0,0.2)"><span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">No.</span></span>
+		</code></pre>
+	</div>
+
+
+	<div id="actual" class="step slide same" data-x="1100" data-y="5000">
+		<h2>Running App. Actual result</h2>
+		<pre class="hljs"><code>
+> node app
+
+<span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">No.</span>
+<span class="hljs-function">lib.alwaysYes</span>()  should say "Yes!"   <span class="hljs-string">Yes!</span>
+<span style="background: rgba(255,0,0,0.3)"><span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">Yes!</span></span>
+		</code></pre>
+	</div>
+
+
+
+	<div id="wat" class="step slide" data-x="1100" data-y="7000" data-rotate-x="-90" data-rotate-y="20" data-scale="2">
+		<h2>WAT?</h2>
+		<img src="img/wat.jpg" style="display: block; width: 100%;" alt=""/>
+	</div>
+
+
+	<div id="problem1" class="step slide" data-x="1100" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
+		<h2>Let's have a look at the files</h2>
+
+
+	</div>
+
+
+	<div id="summary" class="step slide" data-x="0" data-y="9000" data-scale="2">
+		<h2>Summary</h2>
+
+		<ol>
+		</ol>
+
+	</div>
+
+
+	<div id="links" class="step slide" data-x="0" data-y="10000" data-scale="4">
+		<b>Thanks!</b>
+		<p><a href="https://github.com/nkbt/sydjs-npm" target="_blank">https:// github.com / <strong>nkbt</strong> / sydjs-npm</a></p>
+		<p><a href="http://butenko.me" target="_blank">http:// <strong>butenko.me</strong></a></p>
+	</div>
+
+
+</div>
+
+<!--
+<ul id="nav">
+	<li><a href="#title">Title</a></li>
+	<li><a href="#summary">Summary</a></li>
+	<li><a href="#links">Thanks</a></li>
+</ul>
+-->
+
+<script type="text/javascript" src="js/impress.js"></script>
+<script type="text/javascript" src="js/highlight.pack.js"></script>
+
+<script>
+
+	(function () {
+
+		var codes = {},
+				timers = {};
+
+		function typeText(id, $element, callback) {
+			var code;
+			if (!!timers[id]) {
+				clearTimeout(timers[id]);
+				timers[id] = null;
+			}
+			if (!codes[id]) {
+				codes[id] = $element.innerHTML.trim();
+			}
+			code = codes[id].split('');
+			$element.innerHTML = '';
+			$element.style.display = 'block';
+
+			function typeChar() {
+				if (code.length < 1) {
+					return callback();
+				}
+				var char = code.shift();
+				if (char === '\t') {
+					char = '  ';
+				}
+				$element.innerHTML = [$element.innerHTML, char].join('');
+				timers[id] = setTimeout(typeChar, (char === '\n') ? 200 : 10);
+			}
+
+			return typeChar();
+		}
+
+
+		document.body.addEventListener("impress:stepenter", function (event) {
+			var $code = event.target.querySelector('code.hljs'),
+					code;
+			if (!$code) {
+				return null;
+			}
+			return typeText(event.target.id, $code, function () {
+				hljs.highlightBlock($code);
+			});
+		}, false);
+
+		document.body.addEventListener("impress:stepleave", function (event) {
+			var $code = event.target.querySelector('code.hljs');
+			if (!$code) {
+				return;
+			}
+			if (!!timers[event.target.id]) {
+				clearTimeout(timers[event.target.id]);
+				timers[event.target.id] = null;
+			}
+		}, false);
+
+		Array.prototype.slice.apply(document.querySelectorAll('pre code.hljs')).forEach(function (element) {
+			element.style.display = 'none';
+		});
+
+		impress().init();
+	}());
+</script>
+</body>
+</html>
