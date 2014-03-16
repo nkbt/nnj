@@ -67,19 +67,10 @@
 		<pre><code class="json hljs">
 {
 	"name": "shared",
-	"private": true,
-	"description": "Shared library",
-	"version": "0.0.1",
-	"author": {
-		"name": "Nik Butenko",
-		"email": "nik@butenko.me"
-	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nkbt/sydjs-npm.git#shared"
-	},
-	"main": "index.js",
-	"readmeFilename": "README.md"
+	}
 }
 		</code></pre>
 	</div>
@@ -115,22 +106,13 @@ exports.say = say;
 		<pre><code class="json hljs">
 {
 	"name": "lib",
-	"private": true,
-	"description": "Library",
-	"version": "0.0.1",
-	"author": {
-		"name": "Nik Butenko",
-		"email": "nik@butenko.me"
-	},
 	"dependencies": {
 		"shared": "nkbt/sydjs-npm#shared"
 	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nkbt/sydjs-npm.git#lib"
-	},
-	"main": "index.js",
-	"readmeFilename": "README.md"
+	}
 }
 		</code></pre>
 	</div>
@@ -159,26 +141,14 @@ exports.alwaysYes = alwaysYes;
 		<pre><code class="json hljs">
 {
 	"name": "sydjs-npm",
-	"private": true,
-	"description": "Writing custom re-usable NPM modules and how not to mess it up.",
-	"version": "0.0.1",
-	"author": {
-		"name": "Nik Butenko",
-		"email": "nik@butenko.me"
-	},
 	"dependencies": {
 		"lib": "nkbt/sydjs-npm#lib",
 		"shared": "nkbt/sydjs-npm#shared"
 	},
-	"scripts": {
-		"start": "node app.js"
-	},
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nkbt/sydjs-npm.git#master"
-	},
-	"main": "app.js",
-	"readmeFilename": "README.md"
+	}
 }
 		</code></pre>
 	</div>
@@ -207,8 +177,7 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 
 	<div id="expected" class="step slide same" data-x="0" data-y="5000">
 		<h2>Running App. What we would expect?</h2>
-		<pre class="hljs"><code>
-> node app
+		<pre class="hljs"><code> > node app
 
 <span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">No.</span>
 <span class="hljs-function">lib.alwaysYes</span>()  should say "Yes!"   <span class="hljs-string">Yes!</span>
@@ -219,8 +188,7 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 
 	<div id="actual" class="step slide same" data-x="1100" data-y="5000">
 		<h2>Running App. Actual result</h2>
-		<pre class="hljs"><code>
-> node app
+		<pre class="hljs"><code> > node app
 
 <span class="hljs-function">alwaysNo</span>()       should say "No."    <span class="hljs-string">No.</span>
 <span class="hljs-function">lib.alwaysYes</span>()  should say "Yes!"   <span class="hljs-string">Yes!</span>
@@ -236,57 +204,35 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 	</div>
 
 
-	<div id="files" class="step slide" data-x="0" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
+	<div id="files" class="step slide" data-x="0" data-y="8000" data-scale="1">
 		<h2>Let's have a look at the files</h2>
-		<pre class="hljs"><code>
-<span class="hljs-string">app.js</span>
-LICENSE
-<span class="hljs-string">package.json</span>
-README.md
+		<pre class="hljs"><code>app.js
+package.json
 <span class="hljs-function">node_modules</span>
   <span class="hljs-function">lib</span>
-    .npmignore
-    <span class="hljs-string">index.js</span>
-    LICENSE
-    <span class="hljs-string">package.json</span>
-    README.md
+    index.js
+    package.json
   <span class="hljs-function">shared</span>
-    .npmignore
-    <span class="hljs-string">index.js</span>
-    LICENSE
-    <span class="hljs-string">package.json</span>
-    README.md
+    index.js
+    package.json
 </code></pre>
 	</div>
 
 
-	<div id="missing" class="step slide" data-x="1100" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
-		<h2>We definitely miss something here</h2>
-		<pre class="hljs"><code>
-<span class="hljs-string">app.js</span>
-LICENSE
-<span class="hljs-string">package.json</span>
-README.md
+	<div id="missing" class="step slide" data-x="1100" data-y="8000" data-scale="1">
+		<h2>Feels like we miss something</h2>
+		<pre class="hljs"><code>app.js
+package.json
 <span class="hljs-function">node_modules</span>
   <span class="hljs-function">lib</span>
-    .npmignore
-    <span class="hljs-string">index.js</span>
-    LICENSE
-    <span class="hljs-string">package.json</span>
-    README.md
+    index.js
+    package.json
 <span style="background: rgba(0,255,0, 0.2); display: block;">    <span class="hljs-function">node_modules</span>
       <span class="hljs-function">shared</span>
-        .npmignore
-        <span class="hljs-string">index.js</span>
-        LICENSE
-        <span class="hljs-string">package.json</span>
-        README.md</span>
-  <span class="hljs-function">shared</span>
-    .npmignore
-    <span class="hljs-string">index.js</span>
-    LICENSE
-    <span class="hljs-string">package.json</span>
-    README.md
+        index.js
+        package.json</span>  <span class="hljs-function">shared</span>
+    index.js
+    package.json
 </code></pre>
 	</div>
 
