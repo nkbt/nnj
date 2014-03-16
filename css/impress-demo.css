@@ -249,6 +249,13 @@ a:focus {
     padding-bottom: 40px;
 }
 
+.slide h3 {
+    display: block;
+    font-size: 30px;
+    line-height: 40px;
+    padding-bottom: 20px;
+}
+
 .slide ul {
 	list-style: disc;
 	padding-left: 2em;

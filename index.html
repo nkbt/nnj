@@ -237,18 +237,94 @@ package.json
 	</div>
 
 
-	<div id="summary" class="step slide" data-x="0" data-y="9000" data-scale="2">
-		<h2>Summary</h2>
+	<div id="why" class="step slide" data-x="0" data-y="9000" data-scale="2">
+		<h2>Why is this happening? NPM Bug?</h2>
 
-		<ol>
-		</ol>
+		<ul>
+			<li>Some people think it is a bug: <a href="https://github.com/npm/npm/issues/1341">npm/npm#1341</a></li>
+			<li>According to <a href="http://nodejs.org/docs/latest/api/modules.html#modules_loading_from_node_modules_folders">node.js documentation</a> modules could be loaded from upper level</li>
+			<li>NPM just implements this rule</li>
+			<li>If not - we would get much larger <b>node_modules</b> dir and problems with <b>circular dependencies</b></li>
+		</ul>
 
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<h2>What to do?</h2>
 	</div>
 
 
-	<div id="links" class="step slide" data-x="0" data-y="10000" data-scale="4">
+	<div id="fix1" class="step slide" data-x="0" data-y="10000" data-scale="1">
+		<h3>1. Do not use static module configuration, use closure</h3>
+
+		<pre><code class="js hljs">
+module.exports = function(sayYes) {
+	return {
+		say: function() {
+			if (sayYes) {
+				return "Yes!";
+			}
+			return "No.";
+		}
+	}
+};
+
+
+// Usage in app.js
+var shared = require('shared')(true);
+console.log(shared.say()); // Will say: "Yes!"
+		</code></pre>
+	</div>
+
+
+	<div id="fix2" class="step slide" data-x="1100" data-y="10000" data-scale="1">
+		<h3>2. Do not use static module configuration, use objects</h3>
+
+		<pre><code class="js hljs">
+function Shared(sayYes) {
+	this._sayYes = sayYes;
+}
+
+Shared.prototype.say = function () {
+	if (this._sayYes) {
+		return "Yes!";
+	}
+	return "No.";
+};
+
+module.exports = Shared;
+
+
+// Usage in app.js
+var Shared = require('shared');
+var shared = new Shared(true);
+console.log(shared.say()); // Will say: "Yes!"
+		</code></pre>
+	</div>
+
+	<div id="fix3" class="step slide" data-x="2200" data-y="10000" data-scale="1">
+		<h3>3. Use <b>bundledDependencies</b> in package.json</h3>
+
+		<pre><code class="json hljs">
+{
+	"name": "lib",
+	"dependencies": {
+		"shared": "nkbt/sydjs-npm#shared"
+	},
+	"bundledDependencies": [
+		"shared"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nkbt/sydjs-npm.git#lib"
+	}
+}
+		</code></pre>
+	</div>
+
+
+	<div id="links" class="step slide" data-x="2000" data-y="12000" data-rotate-x="90" data-rotate-y="90"  data-scale="3">
 		<b>Thanks!</b>
-		<p><a href="https://github.com/nkbt/sydjs-npm" target="_blank">https:// github.com / <strong>nkbt</strong> / sydjs-npm</a></p>
+		<p><a href="https://github.com/nkbt/sydjs-npm" target="_blank">https:// github.com / <strong>nkbt</strong> / sydjs-npm</a> (branches)</p>
 		<p><a href="http://butenko.me" target="_blank">http:// <strong>butenko.me</strong></a></p>
 	</div>
 
@@ -295,7 +371,7 @@ package.json
 					char = '  ';
 				}
 				$element.innerHTML = [$element.innerHTML, char].join('');
-				timers[id] = setTimeout(typeChar, (char === '\n') ? 200 : 10);
+				timers[id] = setTimeout(typeChar, (char === '\n') ? 100 : 10);
 			}
 
 			return typeChar();
@@ -303,26 +379,27 @@ package.json
 
 
 		document.body.addEventListener("impress:stepenter", function (event) {
-			var $code = event.target.querySelector('code.hljs'),
+			var $code = event.target.querySelector('code.hljs:not(.processed)'),
 					code;
 			if (!$code) {
 				return null;
 			}
+			$code.classList.add('processed');
 			return typeText(event.target.id, $code, function () {
 				hljs.highlightBlock($code);
 			});
 		}, false);
 
-		document.body.addEventListener("impress:stepleave", function (event) {
-			var $code = event.target.querySelector('code.hljs');
-			if (!$code) {
-				return;
-			}
-			if (!!timers[event.target.id]) {
-				clearTimeout(timers[event.target.id]);
-				timers[event.target.id] = null;
-			}
-		}, false);
+//		document.body.addEventListener("impress:stepleave", function (event) {
+//			var $code = event.target.querySelector('code.hljs');
+//			if (!$code) {
+//				return;
+//			}
+//			if (!!timers[event.target.id]) {
+//				clearTimeout(timers[event.target.id]);
+//				timers[event.target.id] = null;
+//			}
+//		}, false);
 
 		Array.prototype.slice.apply(document.querySelectorAll('pre code.hljs')).forEach(function (element) {
 			element.style.display = 'none';
