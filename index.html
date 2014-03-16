@@ -236,10 +236,58 @@ console.log('alwaysNo()       should say "No."   ', alwaysNo());
 	</div>
 
 
-	<div id="problem1" class="step slide" data-x="1100" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
+	<div id="files" class="step slide" data-x="1100" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
 		<h2>Let's have a look at the files</h2>
+		<pre class="hljs"><code>
+<span class="hljs-string">app.js</span>
+LICENSE
+<span class="hljs-string">package.json</span>
+README.md
+<span class="hljs-function">node_modules</span>
+  <span class="hljs-function">lib</span>
+    .npmignore
+    <span class="hljs-string">index.js</span>
+    LICENSE
+    <span class="hljs-string">package.json</span>
+    README.md
+  <span class="hljs-function">shared</span>
+    .npmignore
+    <span class="hljs-string">index.js</span>
+    LICENSE
+    <span class="hljs-string">package.json</span>
+    README.md
+</code></pre>
+	</div>
 
 
+	<div id="missing" class="step slide" data-x="1100" data-y="8000" data-rotate-x="0" data-rotate-y="0" data-scale="1">
+		<h2>We definitely miss something here</h2>
+		<pre class="hljs"><code>
+<span class="hljs-string">app.js</span>
+LICENSE
+<span class="hljs-string">package.json</span>
+README.md
+<span class="hljs-function">node_modules</span>
+  <span class="hljs-function">lib</span>
+    .npmignore
+    <span class="hljs-string">index.js</span>
+    LICENSE
+    <span class="hljs-string">package.json</span>
+    README.md
+<span style="background: rgba(0,255,0, 0.2); display: block;">    <span class="hljs-function">node_modules</span>
+      <span class="hljs-function">shared</span>
+        .npmignore
+        <span class="hljs-string">index.js</span>
+        LICENSE
+        <span class="hljs-string">package.json</span>
+        README.md</span>
+  <span class="hljs-function">shared</span>
+    .npmignore
+    <span class="hljs-string">index.js</span>
+    LICENSE
+    <span class="hljs-string">package.json</span>
+    README.md
+</code></pre>
 	</div>
 
 
