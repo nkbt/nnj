@@ -8,8 +8,8 @@
 		"email": "nik@butenko.me"
 	},
 	"dependencies": {
-		"lib": "nkbt/nnj-lib",
-		"shared": "nkbt/nnj-shared"
+		"nnj-lib": "git://github.com/nkbt/nnj-lib.git",
+		"nnj-shared": "git://github.com/nkbt/nnj-shared.git"
 	},
 	"scripts": {
 		"start": "node app.js"
