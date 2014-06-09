@@ -1,4 +1,4 @@
-var shared = require('shared');
+var shared = require('nnj-shared');
 shared.sayYes(false);
 
 function alwaysNo() {
@@ -7,7 +7,7 @@ function alwaysNo() {
 console.log('alwaysNo()       should say "No."   ', alwaysNo());
 
 
-var lib = require('lib');
+var lib = require('nnj-lib');
 console.log('lib.alwaysYes()  should say "Yes!"  ', lib.alwaysYes());
 
 

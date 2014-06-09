@@ -1,5 +1,5 @@
 {
-	"name": "sydjs-npm",
+	"name": "nnj",
 	"private": true,
 	"description": "Writing custom re-usable NPM modules and how not to mess it up.",
 	"version": "0.0.1",
@@ -8,15 +8,15 @@
 		"email": "nik@butenko.me"
 	},
 	"dependencies": {
-		"lib": "nkbt/sydjs-npm#lib",
-		"shared": "nkbt/sydjs-npm#shared"
+		"lib": "nkbt/nnj-lib",
+		"shared": "nkbt/nnj-shared"
 	},
 	"scripts": {
 		"start": "node app.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/sydjs-npm.git#master"
+		"url": "https://github.com/nkbt/nnj"
 	},
 	"main": "app.js",
 	"readmeFilename": "README.md"
