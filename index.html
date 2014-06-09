@@ -69,7 +69,7 @@
 	"name": "shared",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/nnj-shared"
+		"url": "https://github.com/nkbt/nnj-shared.git"
 	}
 }
 		</code></pre>
@@ -107,7 +107,7 @@ exports.say = say;
 {
 	"name": "nnj-lib",
 	"dependencies": {
-		"nnj-shared": "nkbt/nnj-shared"
+		"nnj-shared": "git://github.com/nkbt/nnj-shared.git"
 	},
 	"repository": {
 		"type": "git",
@@ -142,8 +142,8 @@ exports.alwaysYes = alwaysYes;
 {
 	"name": "nnj",
 	"dependencies": {
-		"nnj-lib": "nkbt/nnj-lib",
-		"nnj-shared": "nkbt/nnj-shared"
+		"nnj-lib": "git://github.com/nkbt/nnj-lib.git",
+		"nnj-shared": "git://github.com/nkbt/nnj-shared.git"
 	},
 	"repository": {
 		"type": "git",
@@ -308,7 +308,7 @@ console.log(shared.say()); // Will say: "Yes!"
 {
 	"name": "lib",
 	"dependencies": {
-		"nnj-shared": "nkbt/nnj-shared"
+		"nnj-shared": "git://github.com/nkbt/nnj-shared.git"
 	},
 	"bundledDependencies": [
 		"nnj-shared"
