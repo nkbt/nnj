@@ -105,9 +105,9 @@ exports.say = say;
 		<h2>"Lib" package.json</h2>
 		<pre><code class="json hljs">
 {
-	"name": "lib",
+	"name": "nnj-lib",
 	"dependencies": {
-		"shared": "nkbt/nnj-shared"
+		"nnj-shared": "nkbt/nnj-shared"
 	},
 	"repository": {
 		"type": "git",
@@ -142,8 +142,8 @@ exports.alwaysYes = alwaysYes;
 {
 	"name": "nnj",
 	"dependencies": {
-		"lib": "nkbt/nnj-lib",
-		"shared": "nkbt/nnj-shared"
+		"nnj-lib": "nkbt/nnj-lib",
+		"nnj-shared": "nkbt/nnj-shared"
 	},
 	"repository": {
 		"type": "git",
@@ -308,10 +308,10 @@ console.log(shared.say()); // Will say: "Yes!"
 {
 	"name": "lib",
 	"dependencies": {
-		"shared": "nkbt/nnj-shared"
+		"nnj-shared": "nkbt/nnj-shared"
 	},
 	"bundledDependencies": [
-		"shared"
+		"nnj-shared"
 	],
 	"repository": {
 		"type": "git",
