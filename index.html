@@ -7,7 +7,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
 	<title>Own NPM modules - pitfalls.</title>
 
-	<meta name="description" content=">Gleam.js - Node.js/Browser re-usable Entities presentation"/>
+	<meta name="description" content="Own NPM modules - pitfalls"/>
 	<meta name="author" content="Nik Butenko"/>
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet"/>
@@ -36,7 +36,7 @@
 		<p>Writing custom re-usable NPM modules and how not to mess it up.</p>
 
 		<div class="footnote">
-			<p>Sydney, 19th March 2014</p>
+			<p>Sydney, 10th June 2014</p>
 			<p>Nik Butenko</p>
 		</div>
 	</div>
@@ -69,7 +69,7 @@
 	"name": "shared",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/sydjs-npm.git#shared"
+		"url": "https://github.com/nkbt/nnj-shared"
 	}
 }
 		</code></pre>
@@ -107,11 +107,11 @@ exports.say = say;
 {
 	"name": "lib",
 	"dependencies": {
-		"shared": "nkbt/sydjs-npm#shared"
+		"shared": "nkbt/nnj-shared"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/sydjs-npm.git#lib"
+		"url": "https://github.com/nkbt/nnj-lib.git"
 	}
 }
 		</code></pre>
@@ -140,14 +140,14 @@ exports.alwaysYes = alwaysYes;
 		<h2>"App" package.json</h2>
 		<pre><code class="json hljs">
 {
-	"name": "sydjs-npm",
+	"name": "nnj",
 	"dependencies": {
-		"lib": "nkbt/sydjs-npm#lib",
-		"shared": "nkbt/sydjs-npm#shared"
+		"lib": "nkbt/nnj-lib",
+		"shared": "nkbt/nnj-shared"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/sydjs-npm.git#master"
+		"url": "https://github.com/nkbt/nnj.git"
 	}
 }
 		</code></pre>
@@ -308,14 +308,14 @@ console.log(shared.say()); // Will say: "Yes!"
 {
 	"name": "lib",
 	"dependencies": {
-		"shared": "nkbt/sydjs-npm#shared"
+		"shared": "nkbt/nnj-shared"
 	},
 	"bundledDependencies": [
 		"shared"
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nkbt/sydjs-npm.git#lib"
+		"url": "https://github.com/nkbt/nnj-lib.git"
 	}
 }
 		</code></pre>
@@ -324,7 +324,7 @@ console.log(shared.say()); // Will say: "Yes!"
 
 	<div id="thanks" class="step slide" data-x="4400" data-y="5300" data-rotate-x="90" data-rotate-y="90"  data-scale="3">
 		<b>Thanks!</b>
-		<p><a href="https://github.com/nkbt/sydjs-npm" target="_blank">https:// github.com / <strong>nkbt</strong> / sydjs-npm</a></p>
+		<p><a href="https://github.com/nkbt/nnj" target="_blank">https:// github.com / <strong>nkbt</strong> / nnj</a></p>
 		<p><a href="http://butenko.me" target="_blank">http:// <strong>butenko.me</strong></a></p>
 	</div>
 
